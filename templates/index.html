@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoodCure - Your Health, Our Priority</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" href="/static/images/pic5.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>  </head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                <span>GoodCure</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('patient_dashboard') }}">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About Us</a></li>
+
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="user-profile">
+                <div class="profile-container" onclick="toggleDropdown()">
+                    <img src="/static/images/image.png" alt="User Profile" class="profile-icon">
+                    <span class="username">{{ user_name }}</span>
+                    <i class="arrow-down"></i>
+                </div>
+                <div id="dropdown" class="dropdown-content">
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                    <a href="#" onclick="confirmDeleteAccount()">Delete Account</a>
+                    <form id="delete-account-form" action="{{ url_for('delete_account') }}" method="POST" style="display: none;"></form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1 class="animate__animated animate__fadeInDown">Welcome to GoodCure</h1>
+                <p class="animate__animated animate__fadeInUp">Your health, our priority. Find the best doctors and manage your healthcare with ease.</p>
+                <button class="animate__animated animate__pulse animate__infinite" onclick="window.location.href='/ai_suggestion'">Try AI Suggestions</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service">
+                <img src="/static/images/doctor_profile.jpg" alt="Doctor Profiles">
+                <h3>Doctor Profiles</h3>
+                <p>Find detailed information about doctors' experience and expertise.</p>
+                <button onclick="window.location.href='/doctor_profile'">Doctor Profiles</button>
+            </div>
+            <div class="service">
+                <img src="/static/images/reviews.jpg" alt="Patient Reviews">
+                <h3>Patient Reviews</h3>
+                <p>Read and share reviews about doctors from real patients.</p><br>
+                <button onclick="window.location.href='/patient_reviews'">View Reviews</button>
+            </div>
+            <div class="service">
+                <img src="/static/images/appointment.jpg" alt="Appointment Booking">
+                <h3>Appointment booking</h3>
+                <p>Book appointments online with professional doctors</p>
+                <button onclick="window.location.href='/patient_appointments'">Book Now</button>
+            </div>
+            <div class="service">
+                <img src="/static/images/lab_results.jpg" alt="Lab Results Viewer">
+                <h3>Lab Results Viewer</h3>
+                <p>View diagnostic and lab results directly in your account.</p><br>
+                <button onclick="window.location.href='/view_lab_results'">View Results</button>
+            </div>
+            <div class="service">
+                <img src="/static/images/ai_diagnosis.jpg" alt="AI Diagnosis">
+                <h3>AI Suggestions</h3>
+                <p>Get AI-powered doctor suggestions based on your symptoms.</p><br>
+                <button onclick="window.location.href='/ai_suggestion'">Try Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <h2 class="animate__animated animate__fadeInDown">About GoodCure</h2>
+            <p class="animate__animated animate__fadeInUp">GoodCure is a web application designed to connect patients with qualified doctors, making healthcare more accessible and efficient. We believe everyone deserves quality healthcare, and we're committed to simplifying the process of finding the right doctor for your needs.</p>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">Our platform offers a range of features to empower patients and doctors alike. From detailed doctor profiles and verified patient reviews to convenient online appointment booking and AI-powered diagnosis support, we strive to provide a comprehensive healthcare management experience.</p>
+            <p class="animate__animated animate__fadeInUp animate__delay-2s">We also prioritize security and data privacy, ensuring your information is safe with us. Our integrated payment system offers secure transactions, and our virtual waiting room feature provides real-time updates, minimizing wait times and improving the overall patient experience.</p>
+            <p class="animate__animated animate__fadeInUp animate__delay-3s">At GoodCure, your health is our priority. We're constantly working to improve our platform and add new features to better serve our community.</p>
+        </div>
+        <div class="about-image animate__animated animate__fadeInRight">
+            <img src="/static/images/about_us_image.jpg" alt="About Us">  </div>
+    </section>
+
+
+    <footer id="contact">
+        <h3>Contact Us</h3>
+        <div class="contact-info">
+            <p>Email: <a href="mailto:support@goodcure.com">support@goodcure.com</a></p>
+            <p>Phone: +1-800-123-4567</p>
+        </div>
+        
+        <p class="copyright">&copy; 2024 GoodCure. All rights reserved.</p>
+    </footer>
+
+
+    <script>
+        function toggleDropdown() {
+    document.getElementById("dropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.profile-icon')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+
+function confirmDeleteAccount() {
+    if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+        document.getElementById("delete-account-form").submit();
+    }
+}
+    </script>
+</body>
+</html>

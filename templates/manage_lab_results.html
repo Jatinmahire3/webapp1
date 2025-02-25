@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Lab Results - GoodCure</title>
+    <link rel="stylesheet" href="/static/css/lab_results.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                GoodCure
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('doctor_dashboard') }}">Home</a></li>
+                
+                
+               
+               
+                <li><a href="{{ url_for('upload_lab_results') }}">Upload labresult</a></li>
+               
+            </ul>
+            
+            
+        </nav>
+    </header>
+
+    <main>
+        <section class="lab-results-section">
+            <h1>Manage Lab Results</h1>
+            <div class="lab-results">
+                {% if lab_results %}
+                {% for result in lab_results %}
+                <div class="lab-result-card">
+                    <div class="result-header">
+                        <p><strong>Patient:</strong> {{ result.patient_name }}</p>
+                        <p><strong>Uploaded On:</strong> {{ result.upload_date.strftime('%Y-%m-%d') }}</p>
+                    </div>
+                    <p><strong>Description:</strong> {{ result.description }}</p>
+
+                    <!-- View/Download Button -->
+                    <a href="{{ url_for('static', filename=result.file_path) }}" class="download-button"
+                        target="_blank">View Result</a>
+
+                    <!-- Action Buttons (Edit and Delete) -->
+                    <div class="action-buttons">
+                        <!-- Edit Button with Pen Icon -->
+                        <button class="edit-button" onclick="openEditModal('{{ result.id }}')">
+                            <img src="/static/images/edit-icon.png" alt="Edit" title="Edit">
+                        </button>
+
+                        <!-- Delete Button -->
+                        <form action="{{ url_for('delete_lab_result', result_id=result.id) }}" method="POST"
+                            style="display: inline;">
+                            <button type="submit" class="delete-button">Delete</button>
+                        </form>
+                    </div><br>
+
+                    <!-- Hidden Edit Form -->
+                    <div id="edit-form-{{ result.id }}" class="edit-form" style="display: none;">
+                        <form action="{{ url_for('update_lab_result', result_id=result.id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            <label for="description-{{ result.id }}">Description:</label>
+                            <textarea id="description-{{ result.id }}" name="description" rows="3"
+                                class="styled-textarea">{{ result.description }}</textarea>
+
+                            <label for="lab_file-{{ result.id }}">Upload New File:</label>
+                            <input type="file" id="lab_file-{{ result.id }}" name="lab_file"
+                                accept=".pdf, .png, .jpg, .jpeg">
+
+                            <button type="submit" class="save-button">Save</button>
+                            <button type="button" class="cancel-button"
+                                onclick="closeEditModal('{{ result.id }}')">Cancel</button>
+                        </form>
+                    </div>
+
+
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="no-results">No lab results found.</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Open the edit form modal
+        function openEditModal(resultId) {
+            document.getElementById(`edit-form-${resultId}`).style.display = 'block';
+        }
+
+        // Close the edit form modal
+        function closeEditModal(resultId) {
+            document.getElementById(`edit-form-${resultId}`).style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

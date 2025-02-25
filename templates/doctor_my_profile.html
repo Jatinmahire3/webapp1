@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - GoodCure</title>
+    <link rel="stylesheet" href="/static/css/dcctor_my_profile.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="/static/images/pic4.png" alt="GoodCure Logo">
+            GoodCure
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('doctor_dashboard') }}">Home</a></li>
+            <li><a href="/doctordash_profile">Manage Profile</a></li>
+            <li><a href="{{ url_for('docpatient_reviews') }}">Reviews</a></li>
+            <li><a href="{{ url_for('upload_lab_results') }}">Upload labresult</a></li>
+        </ul>
+    </header>        
+    <main>
+        <section class="profile-view">
+            <h1>Your Profile</h1>
+
+            <div class="profile-info">
+                <img src="{{ url_for('static', filename='uploads/' + profile.profile_picture) }}" alt="Profile Picture" class="profile-img">
+                <p><strong>Name:</strong> {{ profile.user.name }}</p>
+                <p><strong>Email:</strong> {{ profile.user.email }}</p>
+                <p><strong>Phone:</strong> {{ profile.phone_number }}</p>
+                <p><strong>Location:</strong> {{ profile.location }}</p>
+                <p><strong>City:</strong> {{ profile.city }}</p>
+                <p><strong>Area:</strong> {{ profile.area }}</p>
+                <p><strong>Specialization:</strong> {{ profile.specialization }}</p>
+                <p><strong>Qualifications:</strong> {{ profile.qualifications }}</p>
+                <p><strong>Years of Experience:</strong> {{ profile.years_of_experience }}</p>
+                <img src="{{ url_for('static', filename='uploads/' + profile.certificate_photo) }}" alt="Certificate" class="profile-img">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GoodCure. All rights reserved.</p>
+    </footer>
+</body>
+</html>

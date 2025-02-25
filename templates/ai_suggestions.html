@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Doctor Suggestion</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+         body {
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #009688;
+            padding: 15px 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin-right: 10px;
+            padding: 0;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: color 0.3s, transform 0.2s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 2px;
+            background-color: #ffc107;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            background-color: #ffc107;
+        }
+
+        .nav-links a.active,
+        .nav-links a:active {
+            color: #ffc107;
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:active::after {
+            width: 100%;
+            background-color: #ffc107;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <header>
+        <nav class="navbar">
+          <div class="logo">
+            <img src="/static/images/pic4.png" alt="GoodCure Logo">
+            <span>GoodCure</span>
+          </div>
+          <ul class="nav-links">
+            <li><a href="{{ url_for('patient_dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('doctor_profile') }}">Find Doctors</a></li>
+            <li><a href="{{ url_for('patient_reviews') }}">Patient Reviews</a></li>
+            <li><a href="{{ url_for('view_lab_results') }}">View Lab Results</a></li>
+          </ul>
+        </nav>
+      </header>
+
+    
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+            <center><h1 class="text-3xl font-bold text-gray-800 mb-6">AI Doctor Recommendation</h1></center>
+
+            <div class="mb-6">
+                <form id="aiForm" class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Describe your symptoms and location:
+                        </label>
+                        <textarea id="symptomsInput"
+                            class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            rows="4"
+                            placeholder="Example: I have a severe toothache and need a dentist in Aundh, Pune"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                        Find Recommended Doctors
+                    </button>
+                </form>
+            </div>
+
+            <div id="resultsContainer" class="space-y-6 hidden">
+                <div id="aiSummary" class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-2">AI Analysis:</h3>
+                    <p class="text-gray-700">
+                        Suggested specialty: <span id="specialtyText" class="font-medium"></span><br>
+                        Search location: <span id="locationText" class="font-medium"></span>
+                    </p>
+                </div>
+
+                <div id="doctorResults">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Matching Doctors:</h2>
+                    <div id="doctorList" class="space-y-4"></div>
+                    <p id="noDoctorsMessage" class="text-red-600 hidden">No doctors found matching your criteria.</p>
+                </div>
+            </div>
+
+            <div id="loadingSpinner" class="hidden text-center py-4">
+                <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-300 border-t-blue-600"></div>
+                <p class="mt-2 text-gray-600">Analyzing your request...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('aiForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const symptoms = document.getElementById('symptomsInput').value.trim();
+            const resultsContainer = document.getElementById('resultsContainer');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const doctorList = document.getElementById('doctorList'); // Get doctorList here
+
+            if (!symptoms) {
+                alert('Please describe your symptoms and location');
+                return;
+            }
+
+            loadingSpinner.classList.remove('hidden');
+            resultsContainer.classList.add('hidden');
+            doctorList.innerHTML = ''; // Clear previous results
+
+            try {
+                const response = await fetch('/ai_diagnosis', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ input: symptoms })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    const errorMessage = errorData.error || `HTTP error! status: ${response.status}`;
+                    throw new Error(errorMessage);
+                }
+
+                const data = await response.json();
+
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                document.getElementById('specialtyText').textContent = data.suggested_specialty || 'Not specified';
+                document.getElementById('locationText').textContent =
+                    [data.suggested_location?.city, data.suggested_location?.area].filter(Boolean).join(', ') || 'Not specified';
+
+
+
+                if (data.doctors.length > 0) {
+                    data.doctors.forEach(doctor => {
+                        const doctorDiv = document.createElement('div');
+                        doctorDiv.className = "bg-white border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow";
+                        doctorDiv.innerHTML = `
+                            <div class="flex items-start gap-4">
+                                ${doctor.profile_pic ?
+                                    `<img src="/static/uploads/${doctor.profile_pic}" 
+                                        class="w-20 h-20 rounded-full object-cover">` :
+                                    `<div class="w-20 h-20 bg-gray-200 rounded-full"></div>`}
+                                <div>
+                                    <h3 class="text-lg font-semibold">${doctor.name}</h3>
+                                    <p class="text-gray-600">${doctor.specialization}</p>
+                                    <p class="text-sm text-gray-500">
+                                        ${[doctor.area, doctor.city].filter(Boolean).join(', ')}
+                                    </p>
+                                    <p class="text-sm mt-2">Experience: ${doctor.experience} years</p>
+                                    ${doctor.map_url ?
+                                        `<a href="${doctor.map_url}" target="_blank" 
+                                            class="text-blue-600 hover:underline mt-2 inline-block">
+                                            View on Map
+                                        </a>` : ''}
+                                </div>
+                            </div>`;
+                        doctorList.appendChild(doctorDiv); // Append to the list
+                    });
+                    document.getElementById('noDoctorsMessage').classList.add('hidden');
+                } else {
+                    document.getElementById('noDoctorsMessage').classList.remove('hidden');
+                }
+
+                resultsContainer.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred: ' + error.message);
+            } finally {
+                loadingSpinner.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

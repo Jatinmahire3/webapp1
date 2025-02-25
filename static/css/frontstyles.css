@@ -1,0 +1,156 @@
+/* General Styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #2a0845, #6441a5, #2575fc);
+    height: 100vh;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #fff;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px; /* Adds padding around the logo */
+    background-color: #ffffff; /* Sets the background color to white */
+    border-radius: 40px; /* Optional: Adds rounded corners to the background */
+}
+
+.logo {
+    height: 60px; /* Adjust the height of the logo */
+    width: auto; /* Keeps the aspect ratio of the logo */
+    margin-right: 5px; /* Adds space between the logo and the text */
+}
+
+.website-name {
+    font-size: 30px;
+    font-weight: bold;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    -webkit-background-clip: text;
+    background-clip: text; /* Standard property */
+    color: transparent;
+    -webkit-text-fill-color: transparent; /* For Safari */
+}
+
+.auth-buttons .button {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    border: none;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.auth-buttons .button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(106, 17, 203, 0.6);
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 56px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Info Section */
+.info {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 20px;
+    gap: 40px;
+}
+
+.info-section {
+    display: flex;
+    align-items: center;
+   
+    gap: 60px;
+}
+
+.info-section.left {
+    flex-direction: row;
+}
+
+.info-section.right {
+    flex-direction: row-reverse;
+}
+
+.info-image {
+    width: 30%;
+    height: auto;
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out, transform 0.3s ease;
+}
+
+.info-image.fade-in {
+    opacity: 1;
+}
+
+.info-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.info-text {
+    width: 55%;
+    font-size: 20px; /* Larger font size */
+    line-height: 1.8;
+    color: #e0e0e0;
+    text-align: justify;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.info-text.fade-in-text {
+    opacity: 1;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    margin-top: 20px;
+}
+
+/* For better responsiveness */
+@media (max-width: 768px) {
+    .info-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .info-image {
+        width: 90%;
+    }
+    .info-text {
+        width: 100%;
+        font-size: 16px;
+    }
+}

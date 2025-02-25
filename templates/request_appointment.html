@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Appointment</title>
+    <link rel="stylesheet" href="/static/css/doctor_profile.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                <span>GoodCure</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('patient_dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('doctor_profile') }}">Find Doctors</a></li>
+                <li><a href="{{ url_for('patient_reviews') }}">Patient Reviews</a></li>
+                <li><a href="{{ url_for('view_lab_results') }}">View Lab Results</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="doctor-profile">
+            <img src="{{ url_for('static', filename='uploads/' + doctor.profile_picture) }}" alt="Doctor Profile Picture" class="profile-picture">
+            <div class="doctor-details">
+                <h2>Dr. {{ doctor.name }}</h2>
+                <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+                <p><strong>City:</strong> {{ doctor.city }}</p>
+                <p><strong>Area:</strong> {{ doctor.area }}</p>
+                <p><strong>Location:</strong> {{ doctor.location }}</p>
+                <p><strong>Experience:</strong> {{ doctor.years_of_experience }} years</p>
+                <p><strong>Qualifications:</strong> {{ doctor.qualifications }}</p>
+            </div>
+        </div>
+
+        <form action="{{ url_for('request_appointment', doctor_id=doctor.id) }}" method="POST" class="search-form">
+            <div class="form-group">
+                <label for="appointment_time">Preferred Date and Time</label>
+                <input type="datetime-local" id="appointment_time" name="appointment_time" required>
+            </div>
+
+            <div class="form-group">
+                <label for="reason">Reason for Visit (Optional)</label>
+                <input type="text" id="reason" name="reason">
+            </div>
+
+            <button type="submit" class="search-button">Submit Request</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GoodCure. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

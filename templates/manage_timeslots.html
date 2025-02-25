@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Time Slots - GoodCure</title>
+    <link rel="stylesheet" href="/static/css/manage_timeslots.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                <span>GoodCure</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('doctor_dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="manage-slots-section">
+            <h1>Manage Time Slots</h1>
+            
+            <!-- Time Slot Form -->
+            <div class="time-slot-form">
+                <h2>Create Available Time Slot</h2>
+                <form action="{{ url_for('doctor_manage_slots') }}" method="POST">
+                    <div class="form-group">
+                        <label for="date">Date:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time:</label>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                    <button type="submit" class="save-button">Add Time Slot</button>
+                </form>
+            </div>
+
+            <!-- Existing Time Slots -->
+            <div class="time-slots">
+                <h2>Existing Time Slots</h2>
+                {% if time_slots %}
+                <table class="time-slot-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for slot in time_slots %}
+                        <tr>
+                            <td>{{ slot.slot_time.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ slot.slot_time.strftime('%H:%M') }}</td>
+                            <td>
+                                <button class="edit-button" onclick="openEditModal('{{ slot.id }}')">
+                                    <img src="/static/images/edit-icon.png" alt="Edit" title="Edit">
+                                </button>
+                                <form action="{{ url_for('delete_time_slot', slot_id=slot.id) }}" method="POST" style="display: inline;">
+                                    <button type="submit" class="delete-button">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr id="edit-form-{{ slot.id }}" class="edit-form-row" style="display: none;">
+                            <td colspan="3">
+                                <form action="{{ url_for('update_time_slot', slot_id=slot.id) }}" method="POST">
+                                    <div class="form-group">
+                                        <label for="edit-date-{{ slot.id }}">Edit Date:</label>
+                                        <input type="date" id="edit-date-{{ slot.id }}" name="date" value="{{ slot.slot_time.strftime('%Y-%m-%d') }}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit-time-{{ slot.id }}">Edit Time:</label>
+                                        <input type="time" id="edit-time-{{ slot.id }}" name="time" value="{{ slot.slot_time.strftime('%H:%M') }}" required>
+                                    </div>
+                                    <button type="submit" class="save-button">Save</button>
+                                    <button type="button" class="cancel-button" onclick="closeEditModal('{{ slot.id }}')">Cancel</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p class="no-results">No time slots available.</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function openEditModal(slotId) {
+            document.getElementById(`edit-form-${slotId}`).style.display = 'table-row';
+        }
+
+        function closeEditModal(slotId) {
+            document.getElementById(`edit-form-${slotId}`).style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

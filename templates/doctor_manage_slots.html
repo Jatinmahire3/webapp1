@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Time Slots</title>
+    <link rel="stylesheet" href="/static/css/doctor_profile.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                <span>GoodCure</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('doctor_dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('docpatient_reviews') }}">Patient Reviews</a></li>
+                <li><a href="{{ url_for('manage_lab_results') }}">Manage Lab Results</a></li>
+                <li><a href="{{ url_for('doctor_manage_slots') }}">Manage Slots</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Manage Available Time Slots</h2>
+
+        <!-- Form to add new time slots -->
+        <form action="{{ url_for('doctor_manage_slots') }}" method="POST" class="search-form">
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+            <button type="submit" class="search-button">Add Time Slot</button>
+        </form>
+
+        <!-- List of available time slots -->
+        <h3>Available Time Slots</h3>
+        {% if slots %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for slot in slots %}
+                <tr>
+                    <td>{{ slot.slot_time.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ slot.slot_time.strftime('%H:%M') }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_time_slot', slot_id=slot.id) }}" method="POST" style="display: inline;">
+                            <button type="submit" class="search-button">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No available time slots. Please add new time slots.</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GoodCure. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

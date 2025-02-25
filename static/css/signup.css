@@ -1,0 +1,76 @@
+/* General body styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+    animation: backgroundMove 10s infinite alternate ease-in-out;
+}
+
+/* Container styles */
+.container {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+/* Heading styles */
+h1 {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    background: linear-gradient(to right, #4a90e2, #50e3c2);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 40px;
+}
+
+/* Button styles */
+a.button {
+    display: inline-block;
+    text-decoration: none;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+a.button:hover {
+    background: linear-gradient(to right, #1e4bb3, #5a0dc3);
+    transform: scale(1.05);
+}
+
+/* Subtle animations */
+@keyframes backgroundMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    a.button {
+        font-size: 16px;
+        padding: 12px 20px;
+    }
+}

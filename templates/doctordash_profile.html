@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile - GoodCure</title>
+    <link rel="stylesheet" href="/static/css/doctordash_profile.css">
+    <link rel="icon" href="/static/images/pic5.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="/static/images/pic4.png" alt="GoodCure Logo">
+            GoodCure
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('doctor_dashboard') }}">Home</a></li>
+            <li><a href="/my_profile">My Profile</a></li>
+            <li><a href="appointments.html">Appointments</a></li>
+            <li><a href="{{ url_for('docpatient_reviews') }}">Reviews</a></li>
+            <li><a href="{{ url_for('upload_lab_results') }}">Upload labresult</a></li>
+        </ul>
+    </header>
+
+    <main>
+        <section class="profile-management">
+            <h1>Update Your Profile</h1>
+            <form action="/submit_profile" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="full-name">Full Name:</label>
+                    <input type="text" id="full-name" name="full_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone_number" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Hospital/Clinic Name:</label>
+                    <input type="text" id="location" name="location" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <select id="city" name="city" required>
+                        <option value="Pune">Pune</option>
+                        <!-- Add more cities if necessary -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="area">Area:</label>
+                    <select id="area" name="area" required>
+                        <option value="Aundh">Aundh</option>
+                    <option value="Balewadi">Balewadi</option>
+                    <option value="Baner">Baner</option>
+                    <option value="Bavdhan">Bavdhan</option>
+                    <option value="Bibwewadi">Bibwewadi</option>
+                    <option value="Bhosari">Bhosari</option>
+                    <option value="Camp">Camp</option>
+                    <option value="Chandni Chowk">Chandni Chowk</option>
+                    <option value="Chinchwad">Chinchwad</option>
+                    <option value="Deccan Gymkhana">Deccan Gymkhana</option>
+                    <option value="Dhankawadi">Dhankawadi</option>
+                    <option value="Erandwane">Erandwane</option>
+                    <option value="Fergusson College Road">Fergusson College Road</option>
+                    <option value="Gokhalenagar">Gokhalenagar</option>
+                    <option value="Guruwar Peth">Guruwar Peth</option>
+                    <option value="Hadapsar">Hadapsar</option>
+                    <option value="Hinjewadi">Hinjewadi</option>
+                    <option value="Kalyani Nagar">Kalyani Nagar</option>
+                    <option value="Karvenagar">Karvenagar</option>
+                    <option value="Katraj">Katraj</option>
+                    <option value="Kondhwa">Kondhwa</option>
+                    <option value="Kondhwa Budruk">Kondhwa Budruk</option>
+                    <option value="Koregaon Park">Koregaon Park</option>
+                    <option value="Kothrud">Kothrud</option>
+                    <option value="Mahatma Phule Peth">Mahatma Phule Peth</option>
+                    <option value="Magarpatta">Magarpatta</option>
+                    <option value="Manjari">Manjari</option>
+                    <option value="Mundhwa">Mundhwa</option>
+                    <option value="NIBM Road">NIBM Road</option>
+                    <option value="Navsahyadri">Navsahyadri</option>
+                    <option value="Pashan">Pashan</option>
+                    <option value="Phursungi">Phursungi</option>
+                    <option value="Pimpri-Chinchwad">Pimpri-Chinchwad</option>
+                    <option value="Pune-Solapur Road">Pune-Solapur Road</option>
+                    <option value="Ravet">Ravet</option>
+                    <option value="Rambaug Colony">Rambaug Colony</option>
+                    <option value="Salunke Vihar">Salunke Vihar</option>
+                    <option value="Sadashiv Peth">Sadashiv Peth</option>
+                    <option value="Shivaji Nagar">Shivaji Nagar</option>
+                    <option value="Shivane">Shivane</option>
+                    <option value="Shukrawar Peth">Shukrawar Peth</option>
+                    <option value="Saswad">Saswad</option>
+                    <option value="Sangamwadi">Sangamwadi</option>
+                    <option value="Somwar Peth">Somwar Peth</option>
+                    <option value="Swargate">Swargate</option>
+                    <option value="Swanand Nagar">Swanand Nagar</option>
+                    <option value="Undri">Undri</option>
+                    <option value="Viman Nagar">Viman Nagar</option>
+                    <option value="Warje">Warje</option>
+                    <option value="Wakad">Wakad</option>
+                    <option value="Yerwada">Yerwada</option>
+                        <!-- Add more areas as per your list -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="profile-picture">Profile Picture:</label>
+                    <input type="file" id="profile-picture" name="profile_picture">
+                </div>
+
+                <div class="form-group">
+                    <label for="specialization">Specialization:</label>
+                    <select id="specialization" name="specialization" required>
+                    <option value="Dentist">Dentist</option>
+                    <option value="Dermatologist">Dermatologist</option>
+                    <option value="Endocrinologist">Endocrinologist</option>
+                    <option value="General Physician">General Physician</option>
+                    <option value="Gynecologist">Gynecologist</option>
+                    <option value="Hematologist">Hematologist</option>
+                    <option value="Homeopath">Homeopath</option>
+                    <option value="Neurologist">Neurologist</option>
+                    <option value="Nutritionist">Nutritionist</option>
+                    <option value="Obstetrician">Obstetrician</option>
+                    <option value="Oncologist">Oncologist</option>
+                    <option value="Ophthalmologist">Ophthalmologist</option>
+                    <option value="Orthopedic">Orthopedic</option>
+                    <option value="Pediatrician">Pediatrician</option>
+                    <option value="Physiotherapist">Physiotherapist</option>
+                    <option value="Psychiatrist">Psychiatrist</option>
+                    <option value="Pulmonologist">Pulmonologist</option>
+                    <option value="Radiologist">Radiologist</option>
+                    <option value="Rheumatologist">Rheumatologist</option>
+                    <option value="Urologist">Urologist</option>
+                        <!-- Add more specialties -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="qualifications">Qualifications:</label>
+                    <select id="qualifications" name="qualifications" required>
+                        <option value="MBBS">MBBS</option>
+                        <option value="BDS">BDS</option>
+                        <!-- Add more qualifications -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="certificate-photo">Upload Certificate:</label>
+                    <input type="file" id="certificate-photo" name="certificate_photo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="years-of-experience">Years of Experience:</label>
+                    <input type="number" id="years-of-experience" name="years_of_experience" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="google-maps-url">Google Maps Link:</label>
+                    <input type="url" id="google-maps-url" name="google_maps_url" placeholder="Paste Google Maps link here" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn-primary">Save Profile</button>
+                </div>
+            </form>
+
+            <form action="/delete_doctor_profile" method="POST" class="delete-form">
+                <button type="submit" class="btn-danger" onclick="return confirm('Are you sure you want to delete your profile? This action cannot be undone.')">
+                    Delete My Profile
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GoodCure. All rights reserved.</p>
+        <ul class="social-links"></ul>
+    </footer>
+</body>
+
+</html>

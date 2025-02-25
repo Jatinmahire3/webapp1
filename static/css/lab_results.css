@@ -1,0 +1,389 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+header {
+    background-color: #009688; 
+    color: #fff; 
+    padding: 20px; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    gap: 0px;
+    justify-content: center
+  }
+  
+  .logo img {
+    width: 80px; 
+    margin-right: 10px;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    justify-content: center; 
+    margin-top: 25px;
+  }
+  
+  .nav-links li {
+    margin: 0 15px;
+  }
+  
+  .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight:normal;
+    font-size: 1.05rem;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color:#ffc107; 
+  }
+
+/* Main Content */
+main {
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 0 15px;
+}
+
+.lab-results-section {
+    padding: 40px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.lab-results-section h1 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-transform: capitalize; /* Added for emphasis */
+    border-bottom: 2px solid #009688;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.lab-results {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.lab-result-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.lab-result-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.result-header p {
+    margin: 0;
+}
+
+.lab-result-card p {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.download-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #009688;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-bottom: 20px; /* Added spacing between download and buttons */
+}
+
+.download-button:hover {
+    background-color: #00796b;
+    transform: scale(1.05);
+}
+
+.no-results {
+    font-size: 1.2rem;
+    color: #777;
+    margin-top: 20px;
+}
+
+/* Button Styling */
+button {
+    background-color: #009688;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #00796b;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Edit Button (Pen Icon) */
+.edit-button {
+    background-color: transparent; /* No background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding: 5px;
+    border-radius: 50%; /* Rounded shape */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.edit-button:hover {
+    background-color: rgba(0, 150, 136, 0.1); /* Subtle hover effect */
+    transform: scale(1.1); /* Slightly enlarge the icon */
+}
+
+.edit-button img {
+    width: 18px; /* Adjust icon size */
+    height: 18px;
+    vertical-align: middle;
+}
+
+/* Delete Button */
+.delete-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+/* Save and Cancel Buttons */
+.save-button {
+    background-color: #4CAF50; /* Green for save */
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.save-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+.cancel-button {
+    background-color: #757575; /* Gray for cancel */
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cancel-button:hover {
+    background-color: #616161;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design for Action Buttons */
+@media (max-width: 768px) {
+    .edit-button img {
+        width: 16px; /* Slightly smaller on mobile */
+        height: 16px;
+    }
+
+    .delete-button, .save-button, .cancel-button {
+        padding: 8px 10px; /* Adjust button padding */
+        font-size: 0.8rem;
+    }
+}
+
+/* Form Section Styling */
+.upload-form-section {
+    padding: 40px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.upload-form-section h1 {
+    font-size: 2rem; /* Slightly smaller font size */
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-transform: capitalize; /* Changed from uppercase to capitalize */
+    letter-spacing: 1px; /* Added slight spacing between letters */
+    border-bottom: 1px solid #009688; /* Thinner border for a cleaner look */
+    display: inline-block;
+    padding-bottom: 5px; /* Reduced padding below the text */
+    font-family: 'Arial', sans-serif; /* Ensure a clean, professional font */
+}
+
+/* Form Styling */
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.upload-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload-form .form-group label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.upload-form .form-group input,
+.upload-form .form-group textarea {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.upload-form .form-group input:focus,
+.upload-form .form-group textarea:focus {
+    border-color: #009688;
+    box-shadow: 0 0 5px rgba(0, 150, 136, 0.3);
+    outline: none;
+}
+
+.upload-form .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Submit Button Styling */
+.submit-button {
+    background-color: #009688;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    text-transform: uppercase;
+}
+
+.submit-button:hover {
+    background-color: #00796b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+/* Styling for the edit form textarea */
+.styled-textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.styled-textarea:focus {
+    border-color: #009688; /* Focus border color */
+    box-shadow: 0 0 4px rgba(0, 150, 136, 0.3);
+    outline: none;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .upload-form-section {
+        padding: 20px;
+    }
+
+    .upload-form-section h1 {
+        font-size: 2rem;
+    }
+
+    .upload-form .form-group label {
+        font-size: 1rem;
+    }
+
+    .upload-form .form-group input,
+    .upload-form .form-group textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .submit-button {
+        padding: 10px;
+        font-size: 1rem;
+    }
+}

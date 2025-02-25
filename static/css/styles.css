@@ -1,0 +1,475 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color:  #F5F5F5;
+    color: #333;
+}
+
+/* General Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#009688;
+    padding: 15px 50px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* High value to keep it on top */
+    position: relative;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
+
+.logo img {
+    height: 50px;
+    margin-right: 5px;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px; /* Consistent gap between links */
+    margin-right: 10px;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    padding: 0.5rem 1rem; /* Add some padding around link text */
+    border-radius: 5px; /* Optional: Add rounded corners to links */
+    transition: color 0.3s, transform 0.2s; /* Smooth color and transform transitions */
+    position: relative; /* For positioning the underline */
+}
+
+.nav-links a:hover {
+   /* Change color on hover */
+    transform: translateY(-2px); /* Optional: A slight lift on hover */
+}
+
+.nav-links a::after { /* Create the underline */
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Adjust distance from the text */
+    width: 0; /* Initially hidden */
+    height: 2px;
+    background-color: #ffc107; /* Underline color */
+    transition: width 0.3s ease, background-color 0.3s ease; /* Smooth width and color transitions */
+}
+
+.nav-links a:hover::after { /* Show underline on hover */
+    width: 100%;
+    background-color: #ffc107; /* Match hover color */
+}
+
+/* Optional: Style the active/current link differently */
+.nav-links a.active, /* Class to be added to the active link */
+.nav-links a:active { /* Style for the currently clicked link */
+    color: #ffc107; /* Different color for active link */
+}
+
+.nav-links a.active::after,
+.nav-links a:active::after {
+    width: 100%;
+    background-color: #ffc107; /* Underline for active link */
+}
+
+/* User Profile */
+.user-profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+    transition: background-color 0.3s; /* Smooth transition for container */
+    padding: 8px 12px; /* Add some padding */
+    border-radius: 25px; /* Rounded container */
+}
+
+.profile-container:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Subtle hover background */
+}
+
+.profile-icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* White border */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* Add a subtle shadow */
+    transition: transform 0.3s; /* Smooth scaling */
+}
+
+.profile-icon:hover {
+    transform: scale(1.1); /* Scale on hover */
+}
+
+.username {
+    font-weight: 500;
+    color: #333; /* Darker username text */
+}
+
+.arrow-down {
+    border: solid #333;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    transition: transform 0.3s; /* Smooth rotation */
+}
+
+.profile-container:hover .arrow-down {
+    transform: rotate(135deg); /* Rotate on hover */
+}
+
+
+/* Dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%; /* Position below the container */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    width: 200px; /* Slightly wider dropdown */
+    overflow: hidden;
+    z-index: 1100;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px; /* Add padding */
+    text-align: left; /* Align text to the left */
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+    font-size: 1rem; /* Consistent font size */
+}
+
+.dropdown-content a:hover {
+    background: #f0f0f0; /* Light gray hover background */
+    color: #007bff; /* Blue hover text */
+}
+
+.show {
+    display: block;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/images/hero_background.jpg') no-repeat center center/cover; /* Gradient overlay */
+    height: 60vh; /* Adjust height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative; /* For positioning the animated background */
+    overflow: hidden; /* Hide overflowing animation */
+}
+
+.hero-content {
+    text-align: center;
+    padding: 2rem;
+    z-index: 1; /* Bring content above the animation */
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.hero button {
+    background-color : #1976D2;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.hero button:hover {
+    background-color: #00796b;
+}
+
+
+/* About Us Section */
+.about-section {
+    padding: 4rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #fff;
+    overflow: hidden; /* To contain animations */
+    position: relative; /* For decorative elements */
+}
+
+.about-content {
+    flex: 1 1 50%;
+    padding: 2rem;
+}
+
+.about-content h2 {
+    font-size: 2.5rem; /* Increased size */
+    color: #343a40;
+    margin-bottom: 1.5rem;
+}
+
+.about-content p {
+    color: #6c757d;
+    line-height: 1.8;
+    font-size: 1.1rem; /* Slightly larger font */
+    margin-bottom: 1rem; /* Space between paragraphs */
+}
+
+.about-image {
+    flex: 1 1 50%;
+    text-align: center;
+    padding: 2rem; /* Add some padding */
+}
+
+.about-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* Smooth scaling */
+}
+
+.about-image img:hover {
+    transform: scale(1.05); /* Scale on hover */
+}
+
+/* Decorative Lines (Optional) */
+.about-section::before,
+.about-section::after {
+    content: "";
+    position: absolute;
+    background-color: #007bff; /* Blue color */
+    opacity: 0.2; /* Slightly transparent */
+    z-index: -1; /* Behind the content */
+}
+
+.about-section::before {
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+}
+
+.about-section::after {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 4px;
+}
+
+/*Responsive Design*/
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column; /* Stack content and image */
+        align-items: center;
+    }
+
+    .about-content, .about-image {
+        flex: 1 1 100%; /* Full width on smaller screens */
+        padding: 1rem;
+        text-align: center;
+    }
+}
+.services {
+    background-color: #fff;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.services h2 {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    color: #009688;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+}
+
+.services h2::after {
+    content: '';
+    width: 60px;
+    height: 4px;
+    background-color: #ff5722;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service {
+    background: #f7f9fc;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.service:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.service img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.service button {
+    background-color: #009688;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    
+    /* Ensure buttons stay aligned */
+    margin-top: auto;
+}
+
+.service button:hover {
+    background-color: #00796b;
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: #1e1e1e;
+    color: #ccc;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+footer a {
+    color: #ff5722;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer .social-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+footer .social-links img {
+    width: 28px;
+    height: 28px;
+    transition: transform 0.3s ease;
+}
+
+footer .social-links img:hover {
+    transform: scale(1.2);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-container {
+    position: relative;
+    width: 70%;
+    max-width: 200px; /* Controls the max width */
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    border: 2px solid #00c853; /* Green border */
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.search-button i {
+    font-size: 18px;
+    color: #00c853; /* Green color for icon */
+}
+
+.search-image {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px; /* Adjust the size of the image */
+    height: 20px;
+    pointer-events: none; /* Prevent image from interfering with input */
+    right: -45px;
+}

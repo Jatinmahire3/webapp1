@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Appointments</title>
+    <link rel="stylesheet" href="/static/css/patient_appointment.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                <span>GoodCure</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('patient_dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('doctor_profile') }}">Find Doctors</a></li>
+                <li><a href="{{ url_for('patient_reviews') }}">Patient Reviews</a></li>
+                <li><a href="{{ url_for('view_lab_results') }}">View Lab Results</a></li>
+                <li><a href="{{ url_for('my_appointments') }}">My Appointments</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Doctor List Search Form -->
+        <form action="{{ url_for('patient_appointments') }}" method="GET" class="search-form">
+            <div class="form-group">
+                <label for="city"></label>
+                <select id="city" name="city">
+                    <option value="" disabled selected>City</option>
+                    <option value="Pune">Pune</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="area"></label>
+                <select id="area" name="area">
+                    <option value="" disabled selected>Area</option>
+                    <option value="Aundh">Aundh</option>
+                    <option value="Balewadi">Balewadi</option>
+                    <option value="Baner">Baner</option>
+                    <option value="Bavdhan">Bavdhan</option>
+                    <option value="Bibwewadi">Bibwewadi</option>
+                    <option value="Bhosari">Bhosari</option>
+                    <option value="Camp">Camp</option>
+                    <option value="Chandni Chowk">Chandni Chowk</option>
+                    <option value="Chinchwad">Chinchwad</option>
+                    <option value="Deccan Gymkhana">Deccan Gymkhana</option>
+                    <option value="Dhankawadi">Dhankawadi</option>
+                    <option value="Erandwane">Erandwane</option>
+                    <option value="Fergusson College Road">Fergusson College Road</option>
+                    <option value="Gokhalenagar">Gokhalenagar</option>
+                    <option value="Guruwar Peth">Guruwar Peth</option>
+                    <option value="Hadapsar">Hadapsar</option>
+                    <option value="Hinjewadi">Hinjewadi</option>
+                    <option value="Kalyani Nagar">Kalyani Nagar</option>
+                    <option value="Karvenagar">Karvenagar</option>
+                    <option value="Katraj">Katraj</option>
+                    <option value="Kondhwa">Kondhwa</option>
+                    <option value="Kondhwa Budruk">Kondhwa Budruk</option>
+                    <option value="Koregaon Park">Koregaon Park</option>
+                    <option value="Kothrud">Kothrud</option>
+                    <option value="Mahatma Phule Peth">Mahatma Phule Peth</option>
+                    <option value="Magarpatta">Magarpatta</option>
+                    <option value="Manjari">Manjari</option>
+                    <option value="Mundhwa">Mundhwa</option>
+                    <option value="NIBM Road">NIBM Road</option>
+                    <option value="Navsahyadri">Navsahyadri</option>
+                    <option value="Pashan">Pashan</option>
+                    <option value="Phursungi">Phursungi</option>
+                    <option value="Pimpri-Chinchwad">Pimpri-Chinchwad</option>
+                    <option value="Pune-Solapur Road">Pune-Solapur Road</option>
+                    <option value="Ravet">Ravet</option>
+                    <option value="Rambaug Colony">Rambaug Colony</option>
+                    <option value="Salunke Vihar">Salunke Vihar</option>
+                    <option value="Sadashiv Peth">Sadashiv Peth</option>
+                    <option value="Shivaji Nagar">Shivaji Nagar</option>
+                    <option value="Shivane">Shivane</option>
+                    <option value="Shukrawar Peth">Shukrawar Peth</option>
+                    <option value="Saswad">Saswad</option>
+                    <option value="Sangamwadi">Sangamwadi</option>
+                    <option value="Somwar Peth">Somwar Peth</option>
+                    <option value="Swargate">Swargate</option>
+                    <option value="Swanand Nagar">Swanand Nagar</option>
+                    <option value="Undri">Undri</option>
+                    <option value="Viman Nagar">Viman Nagar</option>
+                    <option value="Warje">Warje</option>
+                    <option value="Wakad">Wakad</option>
+                    <option value="Yerwada">Yerwada</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="specialization"></label>
+                <select id="specialization" name="specialization">
+                    <option value="" disabled selected>Specialization</option>
+                    <option value="Dentist">Dentist</option>
+                    <option value="Dermatologist">Dermatologist</option>
+                    <option value="Endocrinologist">Endocrinologist</option>
+                    <option value="General Physician">General Physician</option>
+                    <option value="Gynecologist">Gynecologist</option>
+                    <option value="Hematologist">Hematologist</option>
+                    <option value="Homeopath">Homeopath</option>
+                    <option value="Neurologist">Neurologist</option>
+                    <option value="Nutritionist">Nutritionist</option>
+                    <option value="Obstetrician">Obstetrician</option>
+                    <option value="Oncologist">Oncologist</option>
+                    <option value="Ophthalmologist">Ophthalmologist</option>
+                    <option value="Orthopedic">Orthopedic</option>
+                    <option value="Pediatrician">Pediatrician</option>
+                    <option value="Physiotherapist">Physiotherapist</option>
+                    <option value="Psychiatrist">Psychiatrist</option>
+                    <option value="Pulmonologist">Pulmonologist</option>
+                    <option value="Radiologist">Radiologist</option>
+                    <option value="Rheumatologist">Rheumatologist</option>
+                    <option value="Urologist">Urologist</option>
+                    <!-- Add more specializations -->
+                </select>
+            </div>
+
+            <button type="submit" class="search-button">Search</button>
+        </form>
+
+        <!-- Doctor List -->
+        {% if doctors %}
+        <div class="doctor-list" id="doctor-list">
+            {% for doctor in doctors %}
+            <div class="doctor-profile">
+                <img src="{{ url_for('static', filename='uploads/' + doctor.profile_picture) }}"
+                    alt="Doctor Profile Picture" class="profile-picture">
+                <div class="doctor-details">
+                    <h2>Dr. {{ doctor.name }}</h2>
+                    <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+                    <p><strong>City:</strong> {{ doctor.city }}</p>
+                    <p><strong>Area:</strong> {{ doctor.area }}</p>
+                    <p><strong>Location:</strong> {{ doctor.location }}</p>
+                    <p><strong>Experience:</strong> {{ doctor.years_of_experience }} years</p>
+                    <p><strong>Qualifications:</strong> {{ doctor.qualifications }}</p>
+                </div>
+                <div class="action-buttons">
+                    <button onclick="showAppointmentForm({{ doctor.id }})">Book Appointment</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No doctors found for the selected filters.</p>
+        {% endif %}
+
+        <!-- Appointment Form -->
+        <div id="appointment-form" style="display: none;">
+            <h2>Request an Appointment</h2>
+            <form action="{{ url_for('book_appointment', doctor_id=0) }}" method="POST" id="appointment-request-form">
+                <div class="form-group">
+                    <label for="slot_id">Available Time Slots</label>
+                    <select id="slot_id" name="slot_id" required>
+                        <!-- Time slots will be dynamically populated -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reason">Reason for Visit (Optional)</label>
+                    <input type="text" id="reason" name="reason">
+                </div>
+
+                <button type="submit" class="search-button">Submit Request</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GoodCure. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showAppointmentForm(doctorId) {
+            // Fetch available time slots for the selected doctor
+            fetch(`/available_slots/${doctorId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const slotSelect = document.getElementById('slot_id');
+                    slotSelect.innerHTML = '';
+                    data.forEach(slot => {
+                        const option = document.createElement('option');
+                        option.value = slot.id;
+                        option.textContent = new Date(slot.slot_time).toLocaleString();
+                        slotSelect.appendChild(option);
+                    });
+
+                    // Update the form action with the selected doctor_id
+                    const form = document.getElementById('appointment-request-form');
+                    form.action = `/book_appointment/${doctorId}`;
+
+                    // Show the appointment form
+                    const appointmentForm = document.getElementById('appointment-form');
+                    appointmentForm.style.display = 'block';
+
+                    // Scroll to the appointment form
+                    appointmentForm.scrollIntoView({ behavior: 'smooth' });
+                })
+                .catch(error => console.error('Error fetching available slots:', error));
+        }
+    </script>
+</body>
+
+</html>

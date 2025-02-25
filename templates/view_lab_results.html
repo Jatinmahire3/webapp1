@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Lab Results - GoodCure</title>
+    <link rel="stylesheet" href="/static/css/lab_results.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+          <div class="logo">
+            <img src="/static/images/pic4.png" alt="GoodCure Logo">
+            <span>GoodCure</span>
+          </div>
+          <ul class="nav-links">
+            <li><a href="{{ url_for('patient_dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('doctor_profile') }}">Find Doctors</a></li>
+            <li><a href="{{ url_for('patient_reviews') }}">Patient Reviews</a></li>
+            <li><a href="{{ url_for('view_lab_results') }}">View Lab Results</a></li>
+          </ul>
+        </nav>
+      </header>
+
+    <main>
+        <section class="lab-results-section">
+            <h1>My Lab Results</h1>
+            <div class="lab-results">
+                {% if lab_results %}
+                    {% for result in lab_results %}
+                    <div class="lab-result-card">
+                        <div class="result-header">
+                            <p><strong>Uploaded By:</strong> Dr. {{ result.doctor_name }}</p>
+                            <p><strong>Uploaded On:</strong> {{ result.upload_date.strftime('%Y-%m-%d') }}</p>
+                        </div>
+                        <p><strong>Description:</strong> {{ result.description }}</p>
+                        <a href="{{ url_for('static', filename=result.file_path) }}" class="download-button" target="_blank">View/Download</a>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <p class="no-results">No lab results found.</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

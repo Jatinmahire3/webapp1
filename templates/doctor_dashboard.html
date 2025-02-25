@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - GoodCure</title>
+    <link rel="stylesheet" href="/static/css/doctor_dashboard.css">
+    <link rel="icon" href="/static/images/pic5.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                <span>GoodCure</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('doctor_dashboard') }}">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#features">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="user-profile">
+                <div class="profile-container" onclick="toggleDropdown()">
+                    <img src="/static/images/image.png" alt="User Profile" class="profile-icon">
+                    <span class="username">{{ user_name }}</span>
+                    <i class="arrow-down"></i>
+                </div>
+                <div id="dropdown" class="dropdown-content">
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                    <a href="#" onclick="confirmDeleteAccount()">Delete Account</a>
+                    <form id="delete-account-form" action="{{ url_for('delete_account') }}" method="POST" style="display: none;"></form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1 class="animate__animated animate__fadeInDown">Welcome, Doctor</h1>
+                <p class="animate__animated animate__fadeInUp">Manage your profile, appointments, and patient interactions seamlessly.</p>
+                <button class="animate__animated animate__pulse animate__infinite" onclick="window.location.href='/doctordash_profile'">Manage Profile</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <h2>Services</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="/static/images/doctor_profile.jpg" alt="Profile Management">
+                <h3>Profile Management</h3>
+                <p>Update your qualifications, contact details, and availability.</p>
+                <button onclick="window.location.href='/doctordash_profile'">Manage Profile</button>
+            </div>
+            <div class="feature-card">
+                <img src="/static/images/appointment.jpg" alt="Appointments">
+                <h3>Appointments</h3>
+                <p>View and manage your upcoming patient appointments.</p>
+                <button onclick="window.location.href='/doctor_appointments'">View Appointments</button>
+            </div>
+            <div class="feature-card">
+                <img src="/static/images/reviews.jpg" alt="Patient Reviews">
+                <h3>Patient Reviews</h3>
+                <p>Read feedback and ratings from your patients.</p><br>
+                <button onclick="window.location.href='/docpatient_reviews'">Read Reviews</button>
+            </div>
+            <div class="feature-card">
+                <img src="/static/images/lab_results.jpg" alt="Lab Results">
+                <h3>Lab Results</h3>
+                <p>Upload diagnostic and lab results for your patients.</p><br>
+                <button onclick="window.location.href='/upload_lab_results'">Upload Lab Results</button>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h3>Contact Us</h3>
+        <div class="contact-info">
+            <p>Email: <a href="mailto:support@goodcure.com">support@goodcure.com</a></p>
+            <p>Phone: +1-800-123-4567</p>
+        </div>
+
+        <p>&copy; 2025 GoodCure. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("dropdown").classList.toggle("show");
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.profile-icon')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
+        function confirmDeleteAccount() {
+            if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+                document.getElementById("delete-account-form").submit();
+            }
+        }
+    </script>
+</body>
+</html>

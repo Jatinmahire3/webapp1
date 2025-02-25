@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments - GoodCure</title>
+    <link rel="stylesheet" href="/static/css/my_appointment.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                <span>GoodCure</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('patient_dashboard') }}">Home</a></li>
+                <li><a href="{{ url_for('doctor_profile') }}">Find Doctors</a></li>
+                <li><a href="{{ url_for('patient_reviews') }}">Patient Reviews</a></li>
+                <li><a href="{{ url_for('view_lab_results') }}">View Lab Results</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="appointments-section">
+            <h1>My Appointments</h1>
+            {% if appointments %}
+            <div class="appointments-list">
+                {% for appointment in appointments %}
+                <div class="appointment-card">
+                    <p><strong>Doctor:</strong> Dr. {{ appointment.doctor.name }}</p>
+                    <p><strong>Appointment Time:</strong> {{ appointment.appointment_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                   
+                    <p><strong>Status:</strong> {{ appointment.status }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p>No appointments found.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+
+</html>

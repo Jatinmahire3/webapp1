@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Reviews</title>
+    <link rel="stylesheet" href="/static/css/patient_reviews.css">
+</head>
+<body>
+    <script>
+        // Open the edit form modal
+        function openEditModal(reviewId) {
+            document.getElementById(`edit-form-${reviewId}`).style.display = 'block';
+        }
+
+        // Close the edit form modal
+        function closeEditModal(reviewId) {
+            document.getElementById(`edit-form-${reviewId}`).style.display = 'none';
+        }
+    </script>
+    
+    <header>
+        <nav class="navbar">
+          <div class="logo">
+            <img src="/static/images/pic4.png" alt="GoodCure Logo">
+            <span>GoodCure</span>
+          </div>
+          <ul class="nav-links">
+            <li><a href="{{ url_for('patient_dashboard') }}">Home</a></li>
+            <li><a href="{{ url_for('doctor_profile') }}">Find Doctors</a></li>
+            <li><a href="{{ url_for('patient_reviews') }}">Patient Reviews</a></li>
+            <li><a href="{{ url_for('view_lab_results') }}">View Lab Results</a></li>
+          </ul>
+        </nav>
+      </header>
+    <main>
+        <!-- Doctor List Search Form -->
+        <form action="{{ url_for('patient_reviews') }}" method="GET" class="search-form">
+            <div class="form-group">
+                <label for="city"></label>
+                <select id="city" name="city">
+                    <option value="" disabled selected>City</option>
+                    <option value="Pune">Pune</option>
+                    <!-- Add more cities -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="area"></label>
+                <select id="area" name="area">
+                    <option value="" disabled selected>Area</option>
+                    <option value="Aundh">Aundh</option>
+                    <option value="Balewadi">Balewadi</option>
+        <option value="Baner">Baner</option>
+        <option value="Bavdhan">Bavdhan</option>
+        <option value="Bibwewadi">Bibwewadi</option>
+        <option value="Bhosari">Bhosari</option>
+        <option value="Camp">Camp</option>
+        <option value="Chandni Chowk">Chandni Chowk</option>
+        <option value="Chinchwad">Chinchwad</option>
+        <option value="Deccan Gymkhana">Deccan Gymkhana</option>
+        <option value="Dhankawadi">Dhankawadi</option>
+        <option value="Erandwane">Erandwane</option>
+        <option value="Fergusson College Road">Fergusson College Road</option>
+        <option value="Gokhalenagar">Gokhalenagar</option>
+        <option value="Guruwar Peth">Guruwar Peth</option>
+        <option value="Hadapsar">Hadapsar</option>
+        <option value="Hinjewadi">Hinjewadi</option>
+        <option value="Kalyani Nagar">Kalyani Nagar</option>
+        <option value="Karvenagar">Karvenagar</option>
+        <option value="Katraj">Katraj</option>
+        <option value="Kondhwa">Kondhwa</option>
+        <option value="Kondhwa Budruk">Kondhwa Budruk</option>
+        <option value="Koregaon Park">Koregaon Park</option>
+        <option value="Kothrud">Kothrud</option>
+        <option value="Mahatma Phule Peth">Mahatma Phule Peth</option>
+        <option value="Magarpatta">Magarpatta</option>
+        <option value="Manjari">Manjari</option>
+        <option value="Mundhwa">Mundhwa</option>
+        <option value="NIBM Road">NIBM Road</option>
+        <option value="Navsahyadri">Navsahyadri</option>
+        <option value="Pashan">Pashan</option>
+        <option value="Phursungi">Phursungi</option>
+        <option value="Pimpri-Chinchwad">Pimpri-Chinchwad</option>
+        <option value="Pune-Solapur Road">Pune-Solapur Road</option>
+        <option value="Ravet">Ravet</option>
+        <option value="Rambaug Colony">Rambaug Colony</option>
+        <option value="Salunke Vihar">Salunke Vihar</option>
+        <option value="Sadashiv Peth">Sadashiv Peth</option>
+        <option value="Shivaji Nagar">Shivaji Nagar</option>
+        <option value="Shivane">Shivane</option>
+        <option value="Shukrawar Peth">Shukrawar Peth</option>
+        <option value="Saswad">Saswad</option>
+        <option value="Sangamwadi">Sangamwadi</option>
+        <option value="Somwar Peth">Somwar Peth</option>
+        <option value="Swargate">Swargate</option>
+        <option value="Swanand Nagar">Swanand Nagar</option>
+        <option value="Undri">Undri</option>
+        <option value="Viman Nagar">Viman Nagar</option>
+        <option value="Warje">Warje</option>
+        <option value="Wakad">Wakad</option>
+        <option value="Yerwada">Yerwada</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="specialization"></label>
+                <select id="specialization" name="specialization">
+                    <option value="" disabled selected>Specialization</option>
+                    <option value="Dentist">Dentist</option>
+                    <option value="Dermatologist">Dermatologist</option>
+                    <option value="Endocrinologist">Endocrinologist</option>
+                    <option value="General Physician">General Physician</option>
+                    <option value="Gynecologist">Gynecologist</option>
+                    <option value="Hematologist">Hematologist</option>
+                    <option value="Homeopath">Homeopath</option>
+                    <option value="Neurologist">Neurologist</option>
+                    <option value="Nutritionist">Nutritionist</option>
+                    <option value="Obstetrician">Obstetrician</option>
+                    <option value="Oncologist">Oncologist</option>
+                    <option value="Ophthalmologist">Ophthalmologist</option>
+                    <option value="Orthopedic">Orthopedic</option>
+                    <option value="Pediatrician">Pediatrician</option>
+                    <option value="Physiotherapist">Physiotherapist</option>
+                    <option value="Psychiatrist">Psychiatrist</option>
+                    <option value="Pulmonologist">Pulmonologist</option>
+                    <option value="Radiologist">Radiologist</option>
+                    <option value="Rheumatologist">Rheumatologist</option>
+                    <option value="Urologist">Urologist</option>
+                    <!-- Add more specializations -->
+                </select>
+            </div>
+
+            <button type="submit" class="search-button">Search</button>
+        </form>
+
+        <!-- Doctor List -->
+        {% if doctors %}
+        <div class="doctor-list">
+            {% for doctor in doctors %}
+            <div class="doctor-profile">
+                <img src="{{ url_for('static', filename='uploads/' + doctor.profile_picture) }}" alt="Doctor Profile Picture" class="profile-picture">
+                <div class="doctor-details">
+                    <h2>Dr. {{ doctor.name }}</h2>
+                    <p><strong>Specialization:</strong> {{ doctor.specialization }}</p>
+                    <p><strong>City:</strong> {{ doctor.city }}</p>
+                    <p><strong>Area:</strong> {{ doctor.area }}</p>
+                    <p><strong>Location:</strong> {{ doctor.location }}</p>
+                    <p><strong>Experience:</strong> {{ doctor.years_of_experience }} years</p>
+                    <p><strong>Qualifications:</strong> {{ doctor.qualifications }}</p>
+                </div>
+                <div class="action-buttons">
+                    <a href="{{ url_for('patient_reviews', doctor_id=doctor.id) }}#leave-review-form" class="reviews-button">Patient Reviews</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+       <!-- Selected Doctor with Reviews -->
+{% if doctor %}
+<div class="selected-doctor">
+    <h2>Dr. {{ doctor.name }}</h2>
+
+    <!-- Review Form (Moved Above Reviews Section) -->
+    <form id="leave-review-form" action="{{ url_for('submit_review', doctor_id=doctor.id) }}" method="POST" class="review-form">
+        <h3>Leave a Review</h3>
+        <div class="form-group">
+            <label for="rating">Rating:</label>
+            <select id="rating" name="rating" required>
+                <option value="" disabled selected>Select Rating</option>
+                <option value="1">1 - Poor</option>
+                <option value="2">2 - Fair</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Very Good</option>
+                <option value="5">5 - Excellent</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" rows="4" required placeholder="Write your review here..."></textarea>
+        </div>
+        <button type="submit" class="submit-button">Submit Review</button>
+    </form>
+
+    <h3>Patient Reviews</h3>
+    <!-- Reviews Section -->
+    <div class="reviews-section">
+        {% if reviews %}
+            {% for review in reviews %}
+            <div class="review">
+                <p><strong>Rating:</strong> {{ review.rating }} / 5</p>
+                <p><strong>From:</strong> {{ review.patient.name }}</p><br>
+                <p class="comment"><strong>Feedback:</strong> {{ review.comment }}</p><br>
+                <p><small>Reviewed on: {{ review.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+
+                {% if session['user_id'] == review.patient_id %}
+                <!-- Edit and Delete Buttons -->
+                <div class="review-actions">
+                    <button class="edit-button" onclick="openEditModal('{{ review.id }}')">
+                        <img src="/static/images/edit-icon.png" alt="Edit Icon" width="16" height="16">
+                    </button>
+                    <form action="{{ url_for('delete_review', review_id=review.id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
+                </div>
+
+                <!-- Hidden Edit Form -->
+                <div id="edit-form-{{ review.id }}" class="edit-form" style="display: none;">
+                    <form action="{{ url_for('edit_review', review_id=review.id) }}" method="POST">
+                        <textarea name="comment" rows="3" required>{{ review.comment }}</textarea>
+                        <select name="rating" required>
+                            <option value="1" {% if review.rating == 1 %}selected{% endif %}>1 - Poor</option>
+                            <option value="2" {% if review.rating == 2 %}selected{% endif %}>2 - Fair</option>
+                            <option value="3" {% if review.rating == 3 %}selected{% endif %}>3 - Good</option>
+                            <option value="4" {% if review.rating == 4 %}selected{% endif %}>4 - Very Good</option>
+                            <option value="5" {% if review.rating == 5 %}selected{% endif %}>5 - Excellent</option>
+                        </select>
+                        <button type="submit" class="save-button">Save</button>
+                        <button type="button" class="cancel-button" onclick="closeEditModal('{{ review.id }}')">Cancel</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+        <p>No reviews yet. Be the first to leave a review!</p>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+       
+    </main>
+    <footer>
+        <p>&copy; 2025 GoodCure. All rights reserved.</p>
+    </footer>
+</body>
+</html>

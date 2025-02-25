@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Lab Results - GoodCure</title>
+    <link rel="stylesheet" href="/static/css/lab_results.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                GoodCure
+            </div>
+            <ul class="nav-links">
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('doctor_dashboard') }}">Home</a></li>
+                    
+                    <li><a href="appointments.html">Appointments</a></li>
+                    <li><a href="/docpatient_reviews">Reviews</a></li>
+                    
+                    
+                    <li><a href="{{ url_for('manage_lab_results') }}">Manage labresult</a></li>
+                </ul>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="upload-form-section">
+            <h1>Upload Lab Results</h1>
+            <form action="/upload_lab_results" method="POST" enctype="multipart/form-data" class="upload-form">
+                <div class="form-group">
+                    <label for="patient_email">Patient Email:</label>
+                    <input type="email" id="patient_email" name="patient_email" placeholder="Enter patient's email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Add an optional description..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="lab_file">Upload Lab Result (PDF/Image):</label>
+                    <input type="file" id="lab_file" name="lab_file" accept=".pdf, .png, .jpg, .jpeg" required>
+                </div>
+
+                <button type="submit" class="submit-button">Upload Lab Result</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

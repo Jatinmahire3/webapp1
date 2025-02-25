@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Reviews - Doctor Dashboard</title>
+    <link rel="stylesheet" href="/static/css/docpatient_reviews.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="/static/images/pic4.png" alt="GoodCure Logo">
+                GoodCure
+            </div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('doctor_dashboard') }}">Home</a></li>
+               
+                <li><a href="appointments.html">Appointments</a></li>
+               
+               
+                <li><a href="{{ url_for('upload_lab_results') }}">Upload labresult</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="reviews">
+            <h1>Patient Reviews</h1>
+            <div class="reviews-section">
+                {% if reviews %}
+                    {% for review in reviews %}
+                    <div class="review-card">
+                        <p><strong>Rating:</strong> {{ review.rating }} / 5</p>
+                        <p><strong>From:</strong> {{ review.patient.name }}</p><br>
+                        <p ><strong>Feedback:</strong> {{ review.comment }}</p><br>
+                        <p><small>Reviewed on: {{ review.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <p>No reviews yet. Your patients haven't submitted any feedback.</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 GoodCure. All rights reserved.</p>
+    </footer>
+</body>
+</html>

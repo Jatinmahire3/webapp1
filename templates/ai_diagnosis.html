@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Doctor Suggestions</title>
+    <style>
+        .doctor-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+            gap: 20px;
+        }
+
+        .doctor-profile {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack elements vertically */
+            align-items: flex-start; /* Align items to the left */
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; /* Make it circular */
+            object-fit: cover; /* Maintain aspect ratio and cover the circle */
+            margin-bottom: 10px;
+            align-self: center; /* Center the image */
+        }
+
+        .doctor-details {
+            margin-bottom: 15px;
+        }
+
+        .doctor-details h2 {
+            margin-top: 0; /* Remove default h2 margin */
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end; /* Align buttons to the right */
+        }
+
+        .action-buttons button {
+            padding: 8px 16px;
+            background-color: #007bff; /* Blue button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth hover effect */
+        }
+
+        .action-buttons button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .action-buttons button:disabled {
+            background-color: #ccc; /* Grayed out when disabled */
+            cursor: default;
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        #no-doctors-message {
+            margin-top: 10px;
+        }
+
+        /* Loading animation styles */
+        .loading-spinner {
+            display: none; /* Hidden by default */
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 2s linear infinite; /* Spin animation */
+            margin: 20px auto; /* Center the spinner */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>AI Doctor Suggestions</h1>
+    <input type="text" id="user-input" placeholder="Enter your symptoms and location...">
+    <button onclick="getDoctorSuggestions()">Get Suggestions</button>
+
+    <div id="error-message"></div>  <div id="no-doctors-message"></div> <div class="loading-spinner" id="loading-spinner"></div> <div id="doctor-results" class="doctor-list">
+        </div>
+
+    <script>
+        async function getDoctorSuggestions() {
+            const userInput = document.getElementById('user-input').value;
+            const errorMessage = document.getElementById('error-message');
+            const noDoctorsMessage = document.getElementById('no-doctors-message');
+            const doctorResults = document.getElementById('doctor-results');
+            const loadingSpinner = document.getElementById('loading-spinner');
+
+            errorMessage.textContent = ""; // Clear previous errors
+            noDoctorsMessage.textContent = ""; // Clear "no doctors" message
+            doctorResults.innerHTML = ""; // Clear previous results
+            loadingSpinner.style.display = "block"; // Show loading spinner
+
+            try {
+                const response = await fetch('/ai_diagnosis', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ input: userInput })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    errorMessage.textContent = errorData.error || "An error occurred.";
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (data.doctors.length === 0) {
+                    noDoctorsMessage.textContent = data.message;
+                } else {
+                    displayDoctors(data.doctors);
+                }
+
+            } catch (error) {
+                errorMessage.textContent = "An error occurred: " + error;
+            } finally {
+                loadingSpinner.style.display = "none"; // Hide loading spinner
+            }
+        }
+
+
+        function displayDoctors(doctors) {
+            const doctorResults = document.getElementById('doctor-results');
+            doctorResults.innerHTML = ""; // Clear existing results
+
+            if (doctors.length === 0) {
+                doctorResults.innerHTML = "<p>No doctors found.</p>";
+                return;
+            }
+
+            doctors.forEach(doctor => {
+                const doctorDiv = document.createElement('div');
+                doctorDiv.classList.add('doctor-profile');
+
+                const img = document.createElement('img');
+                img.src = `/static/uploads/${doctor.profile_picture}`; // Construct image URL
+                img.alt = "Doctor Profile Picture";
+                img.classList.add('profile-picture');
+
+                const detailsDiv = document.createElement('div');
+                detailsDiv.classList.add('doctor-details');
+                detailsDiv.innerHTML = `
+                    <h2>Dr. ${doctor.name}</h2>
+                    <p><strong>Specialization:</strong> ${doctor.specialization}</p>
+                    <p><strong>City:</strong> ${doctor.city}</p>
+                    <p><strong>Area:</strong> ${doctor.area}</p>
+                    <p><strong>Location:</strong> ${doctor.location}</p>
+                    <p><strong>Experience:</strong> ${doctor.years_of_experience} years</p>
+                    <p><strong>Qualifications:</strong> ${doctor.qualifications}</p>
+                `;
+
+                const buttonsDiv = document.createElement('div');
+                buttonsDiv.classList.add('action-buttons');
+
+                const locationButton = document.createElement('button');
+                if (doctor.google_maps_url) {
+                    locationButton.textContent = "View Location";
+                    locationButton.onclick = () => window.open(doctor.google_maps_url, '_blank');
+                } else {
+                    locationButton.textContent = "Location Not Available";
+                    locationButton.disabled = true;
+                }
+                buttonsDiv.appendChild(locationButton);
+
+
+                doctorDiv.appendChild(img);
+                doctorDiv.appendChild(detailsDiv);
+                doctorDiv.appendChild(buttonsDiv);
+                doctorResults.appendChild(doctorDiv);
+            });
+        }
+    </script>
+</body>
+</html>
